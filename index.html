@@ -1,0 +1,1937 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كريم سعيد | مصمم واجهات مستخدم أول</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #000000;
+            --secondary: #ffffff;
+            --accent: #2563eb;
+            --accent-dark: #1d4ed8;
+            --accent-light: #3b82f6;
+            --dark: #0f172a;
+            --dark-blue: #1e293b;
+            --gray: #64748b;
+            --light-gray: #f8fafc;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--light-gray);
+            color: var(--dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+            font-weight: 400;
+        }
+
+        body[dir="ltr"] {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg); 
+            }
+            33% { 
+                transform: translateY(-15px) rotate(2deg); 
+            }
+            66% { 
+                transform: translateY(8px) rotate(-1deg); 
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(37, 99, 235, 0);
+            }
+        }
+
+        /* Animation Classes */
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .animate-fade-in-left {
+            animation: fadeInLeft 1s ease-out;
+        }
+
+        .animate-fade-in-right {
+            animation: fadeInRight 1s ease-out;
+        }
+
+        .animate-pulse-slow {
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        /* Scroll Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            padding: 10px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-accent {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .lang-toggle {
+            background: transparent;
+            color: var(--dark);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .lang-toggle:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(135deg, var(--light-gray) 0%, #ffffff 100%);
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .hero-text {
+            position: relative;
+            animation: fadeInLeft 1s ease-out 0.2s both;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .name-title {
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark);
+            line-height: 1.1;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        .job-title {
+            font-size: 1.4rem;
+            color: var(--accent);
+            margin-bottom: 25px;
+            font-weight: 600;
+            animation: fadeInUp 0.8s ease-out 0.8s both;
+        }
+
+        .executive-summary {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 40px;
+            line-height: 1.8;
+            border-right: 3px solid var(--accent);
+            padding-right: 20px;
+            animation: fadeInUp 0.8s ease-out 1s both;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+            animation: fadeInUp 0.8s ease-out 1.2s both;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--accent);
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-top: 8px;
+            display: block;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            animation: fadeInUp 0.8s ease-out 1.4s both;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--dark);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Professional Visual */
+        .professional-visual {
+            position: relative;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInRight 1s ease-out 0.2s both;
+        }
+
+        .visual-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-card {
+            width: 320px;
+            height: 400px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            z-index: 3;
+            border: 1px solid var(--border);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 25px;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .card-text {
+            color: var(--gray);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .floating-card {
+            position: absolute;
+            width: 280px;
+            height: 180px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            border: 1px solid var(--border);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .card-1 {
+            top: 20px;
+            right: 20px;
+            animation-delay: 0s;
+            z-index: 2;
+        }
+
+        .card-2 {
+            bottom: 40px;
+            left: 30px;
+            animation-delay: 2s;
+            z-index: 1;
+        }
+
+        .card-3 {
+            top: 120px;
+            left: -20px;
+            animation-delay: 4s;
+            z-index: 2;
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 15px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        /* Experience Section */
+        .experience-timeline {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 40px;
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .timeline-item.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-date {
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .timeline-content h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .timeline-company {
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .timeline-description {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-category {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .skill-category.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skill-category h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-category h3 i {
+            color: var(--accent);
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .skill-list li:hover {
+            color: var(--accent);
+            transform: translateX(10px);
+        }
+
+        .skill-list li:last-child {
+            border-bottom: none;
+        }
+
+        .skill-list li i {
+            color: var(--accent);
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill-list li:hover i {
+            transform: scale(1.2);
+        }
+
+        /* Projects Showcase - WITH REAL COVERS */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-cover {
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+            background: #f8fafc;
+        }
+
+        .project-cover-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.4s ease;
+        }
+
+        .project-card:hover .project-cover-img {
+            transform: scale(1.1);
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-view-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform: translateY(20px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .project-card:hover .project-view-btn {
+            transform: translateY(0);
+        }
+
+        .project-view-btn:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+        }
+
+        .project-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .project-content p {
+            color: var(--gray);
+            line-height: 1.6;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .project-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tool-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--light-gray);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tool-icon:hover {
+            background: var(--accent);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .tool-icon:hover::after {
+            content: attr(title);
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            white-space: nowrap;
+            z-index: 10;
+        }
+
+        .project-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .project-link {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+            padding: 8px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .project-link:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .project-date {
+            color: var(--gray);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .contact-info h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--dark);
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: var(--light-gray);
+            transform: translateX(10px);
+        }
+
+        .contact-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--light-gray);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover .contact-icon {
+            background: var(--accent);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .contact-text h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .contact-text p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+
+        .footer-info h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .footer-info p {
+            color: #94a3b8;
+            line-height: 1.7;
+            max-width: 400px;
+        }
+
+        .footer-links h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Loading Bar */
+        .loading-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            width: 0%;
+            z-index: 9999;
+            transition: width 0.3s ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 60px;
+                text-align: center;
+            }
+
+            .professional-visual {
+                order: 2;
+                height: 400px;
+            }
+
+            .floating-card {
+                transform: scale(0.9);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .name-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .project-footer {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+
+            .project-link {
+                text-align: center;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Bar -->
+    <div class="loading-bar" id="loadingBar"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <span class="logo-accent">K</span> <span data-en="Kareem">كريم</span>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#home" data-en="Home">الرئيسية</a></li>
+                <li><a href="#experience" data-en="Experience">الخبرات</a></li>
+                <li><a href="#skills" data-en="Skills">المهارات</a></li>
+                <li><a href="#projects" data-en="Projects">المشاريع</a></li>
+                <li><a href="#contact" data-en="Contact">اتصل بي</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <button class="lang-toggle" id="langToggle">
+                    <i class="fas fa-globe"></i>
+                    <span>EN</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="badge" data-en="UI/UX Designer">UI/UX Designer</div>
+                    <h1 class="name-title" data-en="Kareem Said">كريم سعيد</h1>
+                    <div class="job-title" data-en="UI/UX Designer | Creating Simple & Engaging Digital Experiences">مصمم واجهات مستخدم وتجربة مستخدم </div>
+                    <p class="executive-summary" data-en="UI/UX Designer passionate about crafting simple and engaging digital experiences. Over 2 years of experience in designing apps and platforms.">
+                        أساهم في تصميم تجارب رقمية تجمع بين الجمال والفاعلية. أمتلك خبرة تزيد عن 2 سنوات في تصميم واجهات المستخدم لتطبيقات المؤسسات الكبرى والمنصات التقنية المتقدمة.
+                    </p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-number">30+</span>
+                            <span class="stat-label" data-en="Projects Delivered">مشروع منفذ</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">15+</span>
+                            <span class="stat-label" data-en="International Clients">عميل دولي</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">2+</span>
+                            <span class="stat-label" data-en="Years Experience">سنوات خبرة</span>
+                        </div>
+                    </div>
+
+                    <div class="cta-buttons"> 
+                        <button class="btn btn-primary"
+                            onclick="window.open('https://drive.google.com/file/d/1TGxpA2zKtMg02wQKxYfXzEbjiochZQcf/view?usp=sharing', '_blank')">
+                            <i class="fas fa-briefcase"></i>
+                            <span data-en="View Resume">عرض السيرة الذاتية</span>
+                        </button>
+
+                       <button class="btn btn-secondary"
+                         onclick="window.open('https://wa.me/201222876902', '_blank')">
+                         <i class="fab fa-whatsapp"></i>
+                           <span data-en='whatsapp'>الواتساب</span>
+                        </button>
+
+
+
+                    </div>
+                </div>
+                
+                <div class="professional-visual">
+                    <div class="visual-container">
+                        <div class="main-card">
+                            <div class="card-icon">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <h3 class="card-title" data-en="Leadership Design">تصميم قيادي</h3>
+                            <p class="card-text" data-en="Leading design teams to develop innovative digital products that meet complex business needs.">
+                                أطور واجهات رقمية تقدم تجربة استخدام مبتكرة وسهلة
+                            </p>
+                        </div>
+                        
+                        <div class="floating-card card-1">
+                            <h4 data-en="UX Strategy">إستراتيجية UX</h4>
+                            <p data-en="Comprehensive user experience planning">تخطيط تجارب المستخدم الشاملة</p>
+                        </div>
+                        
+                        <div class="floating-card card-2">
+                            <h4 data-en="System Design">تصميم النظام</h4>
+                            <p data-en="Building scalable design systems">بناء أنظمة تصميم قابلة للتطوير</p>
+                        </div>
+                        
+                        <div class="floating-card card-3">
+                            <h4 data-en="Product Leadership">قيادة المنتج</h4>
+                            <p data-en="Guiding product development journey">توجيه رحلة تطوير المنتج</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge" data-en="Professional Experience">الخبرات المهنية</div>
+                <h2 class="section-title" data-en="My Professional Journey">مسيرتي الاحترافية</h2>
+                <p class="section-subtitle" data-en="Accumulated experience in designing user interfaces for major enterprise platforms and advanced technology applications">
+                    خبرة متراكمة في تصميم واجهات المستخدم لمنصات المؤسسات الكبرى والتطبيقات التقنية المتقدمة
+                </p>
+            </div>
+            
+            <div class="experience-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2025 - <span data-en="Present">الآن</span></div>
+                    <div class="timeline-content">
+                        <h3 data-en="UI/UX Designer">مصمم واجهات وتجربة مستخدم</h3>
+                        <span class="timeline-company" data-en="Mandobk – Saudi Arabia">منصّة مندوبك – السعودية</span>
+                        <p class="timeline-description" data-en="Designed and developed the company’s main website from scratch using modern UI/UX best practices. Improved usability and optimized the internal Task Manager Dashboard to enhance team productivity. Collaborated closely with developers and stakeholders to align design with business goals.">
+                           تصميم وتطوير الموقع الرئيسي للشركة من الصفر باستخدام أحدث ممارسات تصميم واجهات وتجربة المستخدم. تحسين سهولة الاستخدام وتطوير لوحة مهام داخلية لرفع إنتاجية الفريق. التعاون مع المطورين وأصحاب المصلحة لضمان توافق التصميم مع أهداف العمل.
+                         </p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date"> 2024</div>
+                    <div class="timeline-content">
+                        <h3 data-en="Freelance UI/UX Designer">مصمم واجهات وتجربة مستخدم حر</h3>
+                        <span class="timeline-company" data-en="Dar Al-Qalam Center – Dubai">مركز دار القلم – دبي</span>
+                        <p class="timeline-description" data-en="Redesigned the medical center’s website on Wix according to client requirements. Focused on improving usability and visual consistency, delivering a clean and responsive experience that reflects the brand identity.">
+                          إعادة تصميم موقع المركز الطبي على منصة Wix وفقًا لمتطلبات العميل، مع التركيز على تحسين سهولة الاستخدام وتناسق الهوية البصرية، وتقديم تجربة استخدام نظيفة ومتجاوبة تعكس هوية العلامة.
+                         </p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">2024</div>
+                    <div class="timeline-content">
+                        <h3 data-en="UI/UX Designer">مصمم واجهات وتجربة مستخدم</h3>
+                        <span class="timeline-company" data-en="DiDi App – Grocery Delivery Application">تطبيق DiDi – تطبيق توصيل البقالة</span>
+                        <p class="timeline-description" data-en="Designed a mobile app for ordering and delivering groceries. Created a clean interface and intuitive user flow from product selection to checkout, enhancing overall usability.">
+                          تصميم تطبيق جوال لتوصيل المنتجات الغذائية، مع واجهة واضحة وتدفق استخدام بسيط من اختيار المنتج حتى إتمام الطلب، مما حسّن تجربة المستخدم بشكل عام.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge" data-en="Skills & Expertise">المهارات والخبرات</div>
+                <h2 class="section-title" data-en="Areas of Expertise">مجالات التخصص</h2>
+                <p class="section-subtitle" data-en="A comprehensive set of technical and leadership skills that distinguish me in the field of user interface design">
+                    مجموعة شاملة من المهارات التقنية والقيادية التي تميزني في مجال تصميم واجهات المستخدم
+                </p>
+            </div>
+            
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3><i class="fas fa-pencil-ruler"></i> <span data-en="UI Design">تصميم واجهات المستخدم</span></h3>
+                    <ul class="skill-list">
+                        <li><i class="fas fa-check"></i> <span data-en="Application & Website UI Design">تصميم واجهات التطبيقات والمواقع</span></li>
+                        <li><i class="fas fa-check"></i> <span data-en="Design Systems">أنظمة التصميم Design Systems</span></li>
+                        <li><i class="fas fa-check"></i> <span data-en="User Experience Design">تصميم تجربة المستخدم UX</span></li>
+                        <li><i class="fas fa-check"></i> <span data-en="Interactive Prototypes">النماذج الأولية التفاعلية</span></li>
+                        <li><i class="fas fa-check"></i> <span data-en="Component Design">تصميم المكونات Components</span></li>
+                    </ul>
+                </div>
+                
+                <div class="skill-category">
+                    <h3><i class="fas fa-users"></i> <span data-en="Soft Skills">المهارات الشخصية</span></h3>
+                    <ul class="skill-list">
+                        <li><i class="fas fa-check"></i> <span data-en="Communication">التواصل</span></li>
+                        <li><i class="fas fa-check"></i> <span data-en="Problem Solving">حل المشكلات</span></li>
+                        <li><i class="fas fa-check"></i> <span data-en="Team Collaboration">العمل الجماعي</span></li>
+                        <li><i class="fas fa-check"></i> <span data-en="Creativity">الإبداع</span></li>
+                        <li><i class="fas fa-check"></i> <span data-en="Continuous Learning">التعلم المستمر</span></li>
+                        
+                        
+                    </ul>
+                </div>
+                
+                <div class="skill-category">
+                    <h3><i class="fas fa-tools"></i> <span data-en="Tools & Technologies">الأدوات والتقنيات</span></h3>
+                    <ul class="skill-list">
+                        <li><i class="fas fa-check"></i> <span data-en="Figma & Framer">Figma & Framer</span></li>
+                        <li><i class="fas fa-check"></i> <span data-en="Adobe Creative Suite">Adobe Creative Suite</span></li>
+                        <li><i class="fas fa-check"></i> <span data-en="Principle & Protopie">Principle & Protopie</span></li>
+                        <li><i class="fas fa-check"></i> <span data-en="HTML/CSS/JavaScript">HTML/CSS/JavaScript</span></li>
+                        <li><i class="fas fa-check"></i> <span data-en="React & Vue.js">React.js</span></li>
+                        <li><i class="fas fa-check"></i> <span data-en="Wix Website Editor">Wix Website Editor</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section - WITH REAL COVERS -->
+    <section id="projects" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge" data-en="Featured Projects">المشاريع البارزة</div>
+                <h2 class="section-title" data-en="Selected Works">أعمال مختارة</h2>
+                <p class="section-subtitle" data-en="A collection of projects that reflect my expertise in designing user interfaces for major platforms and advanced applications">
+                    مجموعة من المشاريع التي تعكس خبرتي في تصميم واجهات المستخدم للمنصات الكبرى والتطبيقات المتقدمة
+                </p>
+            </div>
+            
+            <div class="projects-grid">
+                <!-- Project 1 - Analytics Platform -->
+                <div class="project-card">
+                    <div class="project-cover">
+                        <img src="./image/jujujuj.png" 
+                             alt="Analytics Dashboard" class="project-cover-img">
+                        <div class="project-overlay">
+                            <button class="project-view-btn">
+                                <i class="fas fa-eye"></i>
+                                <span data-en="View Project">عرض المشروع</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 data-en="Mandobk Platform">منصة مندوبك</h3>
+                        <p data-en="Designing and developing the main website for a recruitment platform in Saudi Arabia. Focused on creating a simple user flow and improving usability through clean layouts and responsive design.">
+                            تصميم وتطوير الموقع الرئيسي لمنصة توظيف في السعودية، مع التركيز على إنشاء تدفق استخدام بسيط وتحسين سهولة الاستخدام من خلال تصميم نظيف ومتجاوب.
+                         </p>
+                        
+                        <div class="project-tools">
+                            <div class="tool-icon" title="Figma">
+                                <i class="fab fa-figma"></i>
+                            </div>
+                            <div class="tool-icon" title="Adobe XD">
+                                <i class="fab fa-adobe"></i>
+                            </div>
+                            <div class="tool-icon" title="Illustrator">
+                                <i class="fas fa-pen-nib"></i>
+                            </div>
+                            <div class="tool-icon" title="After Effects">
+                                <i class="fas fa-film"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="project-footer">
+                            <a href="https://mandubakint.com/" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span data-en="View Project">عرض المشروع</span>
+                            </a>
+                            <div class="project-date" data-en="2024">2024</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 - Finance App -->
+                <div class="project-card">
+                    <div class="project-cover">
+                        <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                             alt="Finance App" class="project-cover-img">
+                        <div class="project-overlay">
+                            <button class="project-view-btn">
+                                <i class="fas fa-eye"></i>
+                                <span data-en="View Project">عرض المشروع</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 data-en="Dar Al-Qalam Center Website">موقع مركز دار القلم</h3>
+                        <p data-en="Redesigned the website for a medical and therapy center based in Dubai using Wix. Improved navigation, visual hierarchy, and overall accessibility for users.">
+                           إعادة تصميم موقع مركز طبي وعلاج طبيعي في دبي باستخدام Wix، مع تحسين سهولة التصفح والتسلسل البصري وسهولة الوصول للمستخدمين.
+                         </p>
+                        
+                        <div class="project-tools">
+                            <div class="tool-icon" title="Figma">
+                                <i class="fab fa-figma"></i>
+                            </div>
+                            <!-- <div class="tool-icon" title="Sketch">
+                                <i class="fab fa-sketch"></i>
+                            </div> -->
+                            <div class="tool-icon" title="Principle">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="tool-icon" title="Photoshop">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="project-footer">
+                            <a href="https://www.daralqalam.net/" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span data-en="View Project">عرض المشروع</span>
+                            </a>
+                            <div class="project-date" data-en="2023">2024</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 - E-commerce -->
+                <div class="project-card">
+                    <div class="project-cover">
+                        <img src="./image/Screenshot 2025-10-18 172730.png" 
+                             alt="E-commerce Platform" class="project-cover-img">
+                        <div class="project-overlay">
+                            <button class="project-view-btn">
+                                <i class="fas fa-eye"></i>
+                                <span data-en="View Project">عرض المشروع</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 data-en="DiDi Grocery Delivery App">تطبيق دي دي لتوصيل البقالة</h3>
+                        <p data-en="Designed a mobile application for grocery delivery, focusing on clean UI and smooth user flow from product selection to checkout.">
+                          تصميم تطبيق جوال لتوصيل البقالة مع واجهة بسيطة وتدفق استخدام سلس من اختيار المنتج حتى إتمام الطلب.
+                         </p>
+                        
+                        <div class="project-tools">
+                            <div class="tool-icon" title="Figma">
+                                <i class="fab fa-figma"></i>
+                            </div>
+                            <div class="tool-icon" title="InVision">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="tool-icon" title="Protopie">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="tool-icon" title="Illustrator">
+                                <i class="fas fa-pen-nib"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="project-footer">
+                            <a href="https://www.behance.net/gallery/231571793/DiDi-app" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span data-en="View Project">عرض المشروع</span>
+                            </a>
+                            <div class="project-date" data-en="2023">2024</div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Project 4 - E-commerce -->
+                <div class="project-card">
+                    <div class="project-cover">
+                        <img src="./image/000002.png" 
+                             alt="E-commerce Platform" class="project-cover-img">
+                        <div class="project-overlay">
+                            <button class="project-view-btn">
+                                <i class="fas fa-eye"></i>
+                                <span data-en="View Project">عرض المشروع</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 data-en="Smart Strategy Trading Platform">منصة سمارت ستراتيجي للتداول</h3>
+                        <p data-en="Designed a modern web interface for a trading platform, focusing on data visualization, clarity, and easy navigation to help users track and manage their investments efficiently.">
+                         تصميم واجهة ويب حديثة لمنصة تداول، مع التركيز على عرض البيانات بشكل واضح وسهل التصفح لمساعدة المستخدمين على متابعة وإدارة استثماراتهم بكفاءة.
+                        </p>
+                        
+                        <div class="project-tools">
+                            <div class="tool-icon" title="Figma">
+                                <i class="fab fa-figma"></i>
+                            </div>
+                            <div class="tool-icon" title="InVision">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="tool-icon" title="Protopie">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="tool-icon" title="Illustrator">
+                                <i class="fas fa-pen-nib"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="project-footer">
+                            <a href="https://www.behance.net/gallery/234037033/Smart-Strategy" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span data-en="View Project">عرض المشروع</span>
+                            </a>
+                            <div class="project-date" data-en="2023">2025</div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Project 5 - E-commerce -->
+                <div class="project-card">
+                    <div class="project-cover">
+                        <img src="./image/Screen Placeholder.png" 
+                             alt="E-commerce Platform" class="project-cover-img">
+                        <div class="project-overlay">
+                            <button class="project-view-btn" >
+                                <i class="fas fa-eye" ></i>
+                                <span data-en="View Project" >عرض المشروع</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 data-en="Ofaq  Platform ">منصة أوفق</h3>
+                        <p data-en="Developed and designed a recruitment website using WordPress, focusing on improving the user journey and creating a clean, responsive interface that simplifies the hiring process.">
+                         تطوير وتصميم موقع توظيف باستخدام WordPress، مع التركيز على تحسين رحلة المستخدم وتقديم واجهة نظيفة ومتجاوبة تسهّل عملية التوظيف.
+                         </p>
+                        
+                        <div class="project-tools">
+                            <div class="tool-icon" title="Figma">
+                                <i class="fab fa-figma"></i>
+                            </div>
+                            <div class="tool-icon" title="InVision">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="tool-icon" title="Protopie">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="tool-icon" title="Illustrator">
+                                <i class="fas fa-pen-nib"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="project-footer">
+                            <a href="https://ofooqhc.com/ar/" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span data-en="View Project">عرض المشروع</span>
+                            </a>
+                            <div class="project-date" data-en="2023">2025</div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Project 6 - E-commerce -->
+                <div class="project-card">
+                    <div class="project-cover">
+                        <img src="./image/Wasalny Ride App.png" 
+                             alt="E-commerce Platform" class="project-cover-img">
+                        <div class="project-overlay">
+                            <button class="project-view-btn">
+                                <i class="fas fa-eye"></i>
+                                <span data-en="View Project">عرض المشروع</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 data-en="Wasalny Ride App">تطبيق وصلني للنقل والمواصلات</h3>
+                        <p data-en="Designed a mobile application similar to Uber for booking and tracking rides. Focused on creating an intuitive user flow, from ride request to driver tracking, with a modern and user-friendly interface.">
+                          تصميم تطبيق جوال مشابه لأوبر لحجز وتتبع الرحلات، مع التركيز على إنشاء تدفق استخدام بسيط من طلب الرحلة حتى تتبع السائق، بواجهة حديثة وسهلة الاستخدام.
+                         </p>
+                        
+                        <div class="project-tools">
+                            <div class="tool-icon" title="Figma">
+                                <i class="fab fa-figma"></i>
+                            </div>
+                            <div class="tool-icon" title="InVision">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="tool-icon" title="Protopie">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="tool-icon" title="Illustrator">
+                                <i class="fas fa-pen-nib"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="project-footer">
+                            <a href="https://www.behance.net/gallery/232178275/_" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span data-en="View Project">عرض المشروع</span>
+                            </a>
+                            <div class="project-date" data-en="2023">2025</div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Project 7 - E-commerce -->
+                <div class="project-card">
+                    <div class="project-cover">
+                        <img src="./image/Cover _ Speedy Chow.png" 
+                             alt="E-commerce Platform" class="project-cover-img">
+                        <div class="project-overlay">
+                            <button class="project-view-btn">
+                                <i class="fas fa-eye"></i>
+                                <span data-en="View Project">عرض المشروع</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 data-en="Speedy Grow Delivery App">تطبيق سبيدي جرو لتوصيل الطلبات</h3>
+                        <p data-en="Designed a food and grocery delivery mobile app similar to Talabat, focusing on a clean interface, easy product browsing, and a seamless order and tracking experience.">
+                         تصميم تطبيق لتوصيل الطعام والبقالة مشابه لتطبيق طلبات، مع التركيز على واجهة بسيطة وسهلة لتصفح المنتجات وتجربة طلب وتتبع سلسة ومريحة للمستخدم.
+                        </p>
+                        
+                        <div class="project-tools">
+                            <div class="tool-icon" title="Figma">
+                                <i class="fab fa-figma"></i>
+                            </div>
+                            <div class="tool-icon" title="InVision">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="tool-icon" title="Protopie">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="tool-icon" title="Illustrator">
+                                <i class="fas fa-pen-nib"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="project-footer">
+                            <a href="https://www.behance.net/gallery/236813403/Speedy-Chow" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span data-en="View Project">عرض المشروع</span>
+                            </a>
+                            <div class="project-date" data-en="2023">2025</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="contact-section">
+                <div class="section-header">
+                    <h2 class="section-title" data-en="Let's Talk About Your Project">لنتحدث عن مشروعك</h2>
+                    <p class="section-subtitle" data-en="Ready to start your next project? Let's discuss how I can help achieve your goals">
+                        مستعد لبدء مشروعك القادم؟ دعنا نناقش كيف يمكنني المساعدة في تحقيق أهدافك
+                    </p>
+                </div>
+                
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3 data-en="Contact Information">معلومات التواصل</h3>
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4 data-en="Email">البريد الإلكتروني</h4>
+                                    <p>kareemsaid123123456@gmail.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4 data-en="Phone">الهاتف</h4>
+                                    <p>01222876902</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4 data-en="Location">الموقع</h4>
+                                    <p data-en="Cairo, Egypt">القاهره، مصر</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form">
+                        <form>
+                            <div style="display: grid; gap: 20px;">
+                                <input type="text" placeholder="الاسم الكامل" data-en-placeholder="Full Name" style="padding: 15px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem;">
+                                <input type="email" placeholder="البريد الإلكتروني" data-en-placeholder="Email Address" style="padding: 15px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem;">
+                                <textarea placeholder="رسالتك" data-en-placeholder="Your Message" rows="5" style="padding: 15px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; resize: vertical;"></textarea>
+                                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                                    <i class="fas fa-paper-plane"></i>
+                                    <span data-en="Send Message">إرسال الرسالة</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3 data-en="Kareem Said">كريم سعيد</h3>
+                    <p data-en="UI/UX Designer with hands-on experience creating modern interfaces and improving user experiences across web and mobile platforms.">
+                        مصمم واجهات وتجربة مستخدم بخبرة عملية في إنشاء واجهات حديثة وتحسين تجارب المستخدم عبر مواقع الويب وتطبيقات الجوال.
+                    </p>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/kareem-said-7aa22228a/"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.behance.net/kareemsaid17"><i class="fab fa-behance"></i></a>
+                        <a href="https://dribbble.com/kareem-said"><i class="fab fa-dribbble"></i></a>
+                        <a href="https://wa.me/201222876902?text=مرحبًا%20كريم%20عايز%20استفسر%20عن%20مشروع"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 data-en="Quick Links">روابط سريعة</h4>
+                    <ul>
+                        <li><a href="#home" data-en="Home">الرئيسية</a></li>
+                        <li><a href="#experience" data-en="Experience">الخبرات</a></li>
+                        <li><a href="#skills" data-en="Skills">المهارات</a></li>
+                        <li><a href="#projects" data-en="Projects">المشاريع</a></li>
+                        <li><a href="#contact" data-en="Contact">اتصل بي</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 data-en="Services">الخدمات</h4>
+                    <ul>
+                        <li><a href="#" data-en="UI Design">تصميم واجهات المستخدم</a></li>
+                        <li><a href="#" data-en="UX Design">تصميم تجربة المستخدم</a></li>
+                        <li><a href="#" data-en="Design Systems">أنظمة التصميم</a></li>
+                        <li><a href="#" data-en="Design Consulting">استشارات التصميم</a></li>
+                        <li><a href="#" data-en="Team Training">تدريب الفرق</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <span data-en="© 2024 Kareem Said. All Rights Reserved.">© 2025 كريم سعيد. جميع الحقوق محفوظة.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Language Management System
+        const translations = {
+            'ar': {
+                // Navigation
+                'Kareem': 'كريم',
+                'Home': 'الرئيسية',
+                'Experience': 'الخبرات',
+                'Skills': 'المهارات',
+                'Projects': 'المشاريع',
+                'Contact': 'اتصل بي',
+                
+                // Hero Section
+                'UI/UX Designer': 'UI/UX Designer',
+                'Kareem Said': 'كريم سعيد',
+                'UI/UX Designer | Creating Simple & Engaging Digital Experiences': 'مصمم واجهات مستخدم وتجربة مستخدم ',
+                'UI/UX Designer passionate about crafting simple and engaging digital experiences. Over 2 years of experience in designing apps and platforms.': 'أساهم في تصميم تجارب رقمية تجمع بين الجمال والفاعلية. أمتلك خبرة تزيد عن 2 سنوات في تصميم واجهات المستخدم لتطبيقات المؤسسات الكبرى والمنصات التقنية المتقدمة.',
+                'Projects Delivered': 'مشروع منفذ',
+                'International Clients': 'عميل دولي',
+                'Years Experience': 'سنوات خبرة',
+                'View Resume': 'عرض السيرة الذاتية',
+                'whatsapp': 'الواتساب ',
+                'Leadership Design': 'تصميم قيادي',
+                'Leading design teams to develop innovative digital products that meet complex business needs.': 'أطور واجهات رقمية تقدم تجربة استخدام مبتكرة وسهلة',
+                'UX Strategy': 'إستراتيجية UX',
+                'Comprehensive user experience planning': 'تخطيط تجارب المستخدم الشاملة',
+                'System Design': 'تصميم النظام',
+                'Building scalable design systems': 'بناء أنظمة تصميم قابلة للتطوير',
+                'Product Leadership': 'قيادة المنتج',
+                'Guiding product development journey': 'توجيه رحلة تطوير المنتج',
+                
+                // Experience Section
+                'Professional Experience': 'الخبرات المهنية',
+                'My Professional Journey': 'مسيرتي الاحترافية',
+                'Accumulated experience in designing user interfaces for major enterprise platforms and advanced technology applications': 'خبرة متراكمة في تصميم واجهات المستخدم لمنصات المؤسسات الكبرى والتطبيقات التقنية المتقدمة',
+                'Present': 'الآن',
+                'UI/UX Designer': 'مصمم واجهات وتجربة مستخدم',
+                'Mandobk – Saudi Arabia': 'منصّة مندوبك – السعودية',
+               'Designed and developed the company’s main website from scratch using modern UI/UX best practices. Improved usability and optimized the internal Task Manager Dashboard to enhance team productivity. Collaborated closely with developers and stakeholders to align design with business goals.': 
+                'تصميم وتطوير الموقع الرئيسي للشركة من الصفر باستخدام أحدث ممارسات تصميم واجهات وتجربة المستخدم. تحسين سهولة الاستخدام وتطوير لوحة مهام داخلية لرفع إنتاجية الفريق. التعاون مع المطورين وأصحاب المصلحة لضمان توافق التصميم مع أهداف العمل.',
+                'Freelance UI/UX Designer': 'مصمم واجهات وتجربة مستخدم حر',
+                'Dar Al-Qalam Center – Dubai': 'مركز دار القلم – دبي',
+                'Redesigned the medical center’s website on Wix according to client requirements. Focused on improving usability and visual consistency, delivering a clean and responsive experience that reflects the brand identity.':
+                'إعادة تصميم موقع المركز الطبي على منصة Wix وفقًا لمتطلبات العميل، مع التركيز على تحسين سهولة الاستخدام وتناسق الهوية البصرية، وتقديم تجربة استخدام نظيفة ومتجاوبة تعكس هوية العلامة.',
+                'UI/UX Designer ': 'مصمم واجهات وتجربة مستخدم ',
+                'DiDi App – Grocery Delivery Application': 'تطبيق DiDi – تطبيق توصيل البقالة',
+                'Designed a mobile app for ordering and delivering groceries. Created a clean interface and intuitive user flow from product selection to checkout, enhancing overall usability.':
+                'تصميم تطبيق جوال لتوصيل المنتجات الغذائية، مع واجهة واضحة وتدفق استخدام بسيط من اختيار المنتج حتى إتمام الطلب، مما حسّن تجربة المستخدم بشكل عام.',
+                // Skills Section
+                'Skills & Expertise': 'المهارات والخبرات',
+                'Areas of Expertise': 'مجالات التخصص',
+                'A comprehensive set of technical and leadership skills that distinguish me in the field of user interface design': 'مجموعة شاملة من المهارات التقنية والقيادية التي تميزني في مجال تصميم واجهات المستخدم',
+                'UI Design': 'تصميم واجهات المستخدم',
+                'Application & Website UI Design': 'تصميم واجهات التطبيقات والمواقع',
+                'Design Systems': 'أنظمة التصميم Design Systems',
+                'User Experience Design': 'تصميم تجربة المستخدم UX',
+                'Interactive Prototypes': 'النماذج الأولية التفاعلية',
+                'Component Design': 'تصميم المكونات Components',
+                'Wireframing & User Flows': 'تصميم الإطارات المبدئية وتدفق المستخدم',
+                'Usability Testing': 'اختبار قابلية الاستخدام',
+                'Responsive Design': 'تصميم متجاوب',
+
+                'Soft Skills': 'المهارات الشخصية',
+                'Communication': 'التواصل',
+                'Problem Solving': 'حل المشكلات',
+                'Team Collaboration': 'العمل الجماعي',
+                'Creativity': 'الإبداع',
+                'Continuous Learning': 'التعلم المستمر',
+                'Tools & Technologies': 'الأدوات والتقنيات',
+                'Figma & Framer': 'Figma & Framer',
+                'Adobe Creative Suite': 'Adobe Creative Suite',
+                'Principle & Protopie': 'Principle & Protopie',
+                'HTML/CSS/JavaScript': 'HTML/CSS/JavaScript',
+                'React.js': 'React.js',
+                'Wix Website Editor': 'Wix Website Editor',
+                
+                // Projects Section
+                'Featured Projects': 'المشاريع البارزة',
+                'Selected Works': 'أعمال مختارة',
+                'A collection of projects that reflect my expertise in designing user interfaces for major platforms and advanced applications': 'مجموعة من المشاريع التي تعكس خبرتي في تصميم واجهات المستخدم للمنصات الكبرى والتطبيقات المتقدمة',
+                'Mandobk Platform': 'منصة مندوبك',
+                'Designing and developing the main website for a recruitment platform in Saudi Arabia. Focused on creating a simple user flow and improving usability through clean layouts and responsive design.':
+                'تصميم وتطوير الموقع الرئيسي لمنصة توظيف في السعودية، مع التركيز على إنشاء تدفق استخدام بسيط وتحسين سهولة الاستخدام من خلال تصميم نظيف ومتجاوب.',
+                'Dar Al-Qalam Center Website': 'موقع مركز دار القلم',
+                'Redesigned the website for a medical and therapy center based in Dubai using Wix. Improved navigation, visual hierarchy, and overall accessibility for users.':
+                'إعادة تصميم موقع مركز طبي وعلاج طبيعي في دبي باستخدام Wix، مع تحسين سهولة التصفح والتسلسل البصري وسهولة الوصول للمستخدمين.',
+                'DiDi Grocery Delivery App': 'تطبيق دي دي لتوصيل البقالة',
+                'Designed a mobile application for grocery delivery, focusing on clean UI and smooth user flow from product selection to checkout.':
+                'تصميم تطبيق جوال لتوصيل البقالة مع واجهة بسيطة وتدفق استخدام سلس من اختيار المنتج حتى إتمام الطلب.',
+                // Project 4
+                'Smart Strategy Trading Platform': 'منصة سمارت ستراتيجي للتداول',
+                'Designed a modern web interface for a trading platform, focusing on data visualization, clarity, and easy navigation to help users track and manage their investments efficiently.':
+                'تصميم واجهة ويب حديثة لمنصة تداول، مع التركيز على عرض البيانات بشكل واضح وسهل التصفح لمساعدة المستخدمين على متابعة وإدارة استثماراتهم بكفاءة.',
+                  // Project 5
+                'Ofaq  Platform': 'منصة أوفق ',
+                'Developed and designed a recruitment website using WordPress, focusing on improving the user journey and creating a clean, responsive interface that simplifies the hiring process.':
+                'تطوير وتصميم موقع توظيف باستخدام WordPress، مع التركيز على تحسين رحلة المستخدم وتقديم واجهة نظيفة ومتجاوبة تسهّل عملية التوظيف.',
+                  // Project 6
+                 'Wasalny Ride App': 'تطبيق وصلني للنقل والمواصلات',
+                 'Designed a mobile application similar to Uber for booking and tracking rides. Focused on creating an intuitive user flow, from ride request to driver tracking, with a modern and user-friendly interface.':
+                 'تصميم تطبيق جوال مشابه لأوبر لحجز وتتبع الرحلات، مع التركيز على إنشاء تدفق استخدام بسيط من طلب الرحلة حتى تتبع السائق، بواجهة حديثة وسهلة الاستخدام.',
+                  // Project 7
+                 'Speedy Grow Delivery App': 'تطبيق سبيدي جرو لتوصيل الطلبات',
+                 'Designed a food and grocery delivery mobile app similar to Talabat, focusing on a clean interface, easy product browsing, and a seamless order and tracking experience.':
+                'تصميم تطبيق لتوصيل الطعام والبقالة مشابه لتطبيق طلبات، مع التركيز على واجهة بسيطة وسهلة لتصفح المنتجات وتجربة طلب وتتبع سلسة ومريحة للمستخدم.',
+
+                'View Project': 'عرض المشروع',
+                // 'View Case Study': 'عرض دراسة الحالة',
+                // 'View Prototype': 'عرض النموذج',
+                // 'View Design System': 'عرض نظام التصميم',
+                
+                // Contact Section
+                "Let's Talk About Your Project": 'لنتحدث عن مشروعك',
+                'Ready to start your next project? Let\'s discuss how I can help achieve your goals': 'مستعد لبدء مشروعك القادم؟ دعنا نناقش كيف يمكنني المساعدة في تحقيق أهدافك',
+                'Contact Information': 'معلومات التواصل',
+                'Email': 'البريد الإلكتروني',
+                'Phone': 'الهاتف',
+                'Location': 'الموقع',
+                'Cairo, Egypt': 'القاهره، مصر',
+                'Full Name': 'الاسم الكامل',
+                'Email Address': 'البريد الإلكتروني',
+                'Your Message': 'رسالتك',
+                'Send Message': 'إرسال الرسالة',
+                
+                // Footer
+                'Kareem Said': 'كريم سعيد',
+                'UI/UX Designer with hands-on experience creating modern interfaces and improving user experiences across web and mobile platforms.':
+                'مصمم واجهات وتجربة مستخدم بخبرة عملية في إنشاء واجهات حديثة وتحسين تجارب المستخدم عبر مواقع الويب وتطبيقات الجوال.',
+                'Quick Links': 'روابط سريعة',
+                'Services': 'الخدمات',
+                'UI Design': 'تصميم واجهات المستخدم',
+                'UX Design': 'تصميم تجربة المستخدم',
+                'Design Systems': 'أنظمة التصميم',
+                'Design Consulting': 'استشارات التصميم',
+                'Team Training': 'تدريب الفرق',
+                '© 2024 Kareem Said. All Rights Reserved.': '© 2024 كريم سعيد. جميع الحقوق محفوظة.'
+            }
+        };
+
+        let currentLang = 'ar';
+
+        // Language Toggle Functionality
+        document.getElementById('langToggle').addEventListener('click', function() {
+            const newLang = currentLang === 'ar' ? 'en' : 'ar';
+            toggleLanguage(newLang);
+        });
+
+        function toggleLanguage(lang) {
+            currentLang = lang;
+            
+            // Update HTML direction and lang attribute
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            document.documentElement.lang = lang;
+            
+            // Update language toggle button
+            document.getElementById('langToggle').querySelector('span').textContent = lang === 'ar' ? 'EN' : 'AR';
+            
+            // Update all translatable elements
+            document.querySelectorAll('[data-en]').forEach(element => {
+                const key = element.getAttribute('data-en');
+                if (lang === 'ar' && translations.ar[key]) {
+                    element.textContent = translations.ar[key];
+                } else {
+                    element.textContent = key;
+                }
+            });
+
+            // Update placeholder texts
+            document.querySelectorAll('[data-en-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-en-placeholder');
+                if (lang === 'ar' && translations.ar[key]) {
+                    element.placeholder = translations.ar[key];
+                } else {
+                    element.placeholder = key;
+                }
+            });
+        }
+
+        // Enhanced Animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            // Observe elements for scroll animations
+            document.querySelectorAll('.timeline-item, .skill-category, .project-card').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Loading bar animation
+            window.addEventListener('scroll', () => {
+                const loadingBar = document.getElementById('loadingBar');
+                const winHeight = window.innerHeight;
+                const docHeight = document.documentElement.scrollHeight;
+                const scrollTop = window.pageYOffset;
+                const scrollPercent = (scrollTop / (docHeight - winHeight)) * 100;
+                loadingBar.style.width = scrollPercent + '%';
+            });
+
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                const navbar = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Animate stats counter
+            function animateStats() {
+                const stats = document.querySelectorAll('.stat-number');
+                stats.forEach(stat => {
+                    const target = parseInt(stat.textContent);
+                    let current = 0;
+                    const increment = target / 50;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            stat.textContent = target + '+';
+                            clearInterval(timer);
+                        } else {
+                            stat.textContent = Math.floor(current) + '+';
+                        }
+                    }, 30);
+                });
+            }
+
+            // Initialize animations
+            animateStats();
+        });
+    </script>
+</body>
+</html>
